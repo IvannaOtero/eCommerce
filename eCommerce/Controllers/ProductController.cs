@@ -32,6 +32,8 @@ public class ProductController : Controller
             _context.Products.Add(p);
             await _context.SaveChangesAsync();
 
+            TempData["Message"] = $"{p.Title} was created successfully!"; 
+
             return RedirectToAction(nameof(Index));
         }
         return View(p);
