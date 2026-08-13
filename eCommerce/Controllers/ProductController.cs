@@ -69,7 +69,7 @@ public class ProductController : Controller
         return View(product);
     }
 
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
 
         if (id <= 0)
@@ -77,8 +77,7 @@ public class ProductController : Controller
             return BadRequest(); 
         }
 
-        Product? product = _context.Products
-        .Where(p => p.ProductId == id).FirstOrDefault();
+        Product? product = await _context.Products.FindAsync(id);
 
         if (product == null)
         {
