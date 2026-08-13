@@ -14,7 +14,7 @@ public class ProductController : Controller
     }
     public async Task<IActionResult> Index()
     {
-        List<Procuct> allProducts = await _context.Products.ToListAsync();
+        List<Product> allProducts = await _context.Products.ToListAsync();
         return View(allProducts);
     }
 
@@ -37,5 +37,19 @@ public class ProductController : Controller
             return RedirectToAction(nameof(Index));
         }
         return View(p);
+    }
+
+    [HttpGet]
+    public IActionResult Edit(int id)
+    {
+        Product product = _context.Products
+        .Where(p => p.ProductId == id).FirstOrDefault();
+
+        if (product == null)
+        {
+            return NotFound();
+        }
+
+        return View(product); 
     }
 }
