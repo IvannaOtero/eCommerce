@@ -42,7 +42,7 @@ public class ProductController : Controller
     [HttpGet]
     public IActionResult Edit(int id)
     {
-        Product product = _context.Products.Where(p => p.ProductId == id)
+        Product? product = _context.Products.Where(p => p.ProductId == id)
             .FirstOrDefault();
 
         if (product == null)
@@ -63,6 +63,25 @@ public class ProductController : Controller
 
             TempData["Message"] = $"{product.Title} was updated successfully"; 
             return RedirectToAction(nameof(Index));
+        }
+
+        return View(product);
+    }
+
+    public IActionResult Delete(int id)
+    {
+
+        if (id <= 0)
+        {
+            return BadRequest(); 
+        }
+
+        Product? product = _context.Products
+        .Where(p => p.ProductId == id).FirstOrDefault();
+
+        if (product == null)
+        {
+            return NotFound();
         }
 
         return View(product);
