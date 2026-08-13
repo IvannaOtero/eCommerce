@@ -43,7 +43,8 @@ public class ProductController : Controller
     public IActionResult Edit(int id)
     {
         Product product = _context.Products
-        .Where(p => p.ProductId == id).FirstOrDefault();
+        .Where(p => p.ProductId == id)
+        .FirstOrDefault();
 
         if (product == null)
         {
