@@ -1,7 +1,8 @@
 ﻿using eCommerce.Data;
 using eCommerce.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore; 
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 
 namespace eCommerce.Controllers;
 
@@ -42,7 +43,7 @@ public class ProductController : Controller
     [HttpGet]
     public IActionResult Edit(int id)
     {
-        Product product = _context.Products.Where(p => p.ProductId == id)
+        Product? product = _context.Products.Where(p => p.ProductId == id)
             .FirstOrDefault();
 
         if (product == null)
@@ -66,5 +67,42 @@ public class ProductController : Controller
         }
 
         return View(product);
+    }
+
+    public async Task<IActionResult> Delete(int id)
+    {
+
+        if (id <= 0)
+        {
+            return BadRequest(); 
+        }
+
+        Product? product = await _context.Products.FindAsync(id);
+
+        if (product == null)
+        {
+            return NotFound();
+        }
+
+        return View(product);
+    }
+
+    [ActionName("Delete")]
+    [HttpPost]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        Product? product = await _context.Products.FindAsync(id);
+            
+
+        if (product == null)
+        {
+            return RedirectToAction(nameof(Index));
+        }
+
+        _context.Remove(product);
+        await _context.SaveChangesAsync();
+
+        TempData["Message"] = $"{product.Title} was successfully deleted";
+        return RedirectToAction(nameof(Index));
     }
 }
