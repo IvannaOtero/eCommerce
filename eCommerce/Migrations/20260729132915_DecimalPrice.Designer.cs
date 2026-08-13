@@ -10,7 +10,7 @@ using eCommerce.Data;
 
 namespace eCommerce.Migrations
 {
-    [DbContext(typeof(ProductDBContext))]
+    [DbContext(typeof(ProductDbContext))]
     [Migration("20260729132915_DecimalPrice")]
     partial class DecimalPrice
     {

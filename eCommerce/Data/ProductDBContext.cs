@@ -2,13 +2,13 @@
 
 namespace eCommerce.Data;
 
-public class ProductDBContext : DbContext
+public class ProductDbContext : DbContext
 {
-    public ProductDBContext(DbContextOptions options) : base(options)
-    { 
-    
+    public ProductDbContext(DbContextOptions<ProductDbContext> options) : base(options)
+    {
+
     }
 
     //Entities to be tracked by DbContext 
-    public DbSet<Models.Product> Products { get; set; }
+    public DbSet<Models.Product> Products { get; set; } = null!;
 }
