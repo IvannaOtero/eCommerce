@@ -29,12 +29,28 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark"  asp-controller="Product" asp-action="Index">Product Listing</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="'Member'" asp-action="Register">Register</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="'Member'" asp-action="Login">Login</a>
-                        </li>
+                        @if (Context.Session.GetString("Username") == null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Member" asp-action="Register">Register</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Member" asp-action="Login">Login</a>
+                            </li>
+                        }
+                        else
+                        {
+                           <li class="nav-item"> 
+                                <a class="nav-link text dark">
+                                    Hello @Context.Session.GetString("Username") 
+                                </a>
+                           </li> 
+                           
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Member" asp-action="Log out">Log out</a>
+                            </li>
+                        }
+
                     </ul>
                 </div>
             </div>
