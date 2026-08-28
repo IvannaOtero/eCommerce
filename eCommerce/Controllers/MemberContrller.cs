@@ -39,4 +39,10 @@ public class MemberContrller : Controller
 
         return View(reg);
     }
+
+    [HttpGet]
+    public IActionResult Login()
+    {
+        return View();
+    }
 }
