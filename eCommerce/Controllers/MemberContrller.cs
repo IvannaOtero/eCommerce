@@ -65,6 +65,7 @@ public class MemberContrller : Controller
             }
 
             // Log the user in???
+             
 
             return RedirectToAction("Index", "Home");
         }
