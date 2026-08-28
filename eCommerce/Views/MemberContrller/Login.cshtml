@@ -1,0 +1,28 @@
+﻿@model LoginViewModel
+@{
+	ViewData["Title"] = "Log In"; 
+}
+
+<h1>Log in to the website</h1>
+
+<form method="post"> 
+	<div class="text-danger"asp-validation-summary="All"></div>
+	<div class="mb-3">
+		<label class="form-label" asp-for="UsernameOrEmail"></label>
+		<input class="form-control" asp-for="UsernameOrEmail" /> 
+		<span class="text-danger" asp-validation-for="UsernameOrEmail"></span>
+	</div>
+	<div class="mb-3">
+		<label  class="form-label" asp-for="Password"></label>
+		<input class="form-control" asp-for="Password" />
+		<span class="text-danger" asp-validation-for="Password"></span>
+	</div>
+
+	<input class="btn btn-primary" type="submit" value="Login" />
+</form>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptPartial");
+	}
+}

@@ -12,6 +12,15 @@ builder.Services.AddDbContext<eCommerce.Data.ProductDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(20); 
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true; 
+});
+
 var app = builder.Build();
 
 // Seed database with initial products
@@ -48,6 +57,8 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapStaticAssets();
 
