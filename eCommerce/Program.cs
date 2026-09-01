@@ -10,6 +10,7 @@ var devDbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder
 var devDbDir = Path.GetDirectoryName(devDbPath)!;
 Directory.CreateDirectory(devDbDir);
 
+// data base here! 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
