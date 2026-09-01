@@ -13,10 +13,29 @@ public class ProductController : Controller
     {
         _context = context;
     }
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(string? title = null, decimal? minPrice = null, decimal? maxPrice = null)
     {
-        List<Product> allProducts = await _context.Products.ToListAsync();
-        return View(allProducts);
+        // Start with the full product set and apply filters conditionally
+        IQueryable<Product> query = _context.Products;
+
+        if (!string.IsNullOrWhiteSpace(title))
+        {
+            // Case-insensitive search on Title
+            query = query.Where(p => EF.Functions.Like(p.Title, $"%{title}%"));
+        }
+
+        if (minPrice.HasValue)
+        {
+            query = query.Where(p => p.Price >= minPrice.Value);
+        }
+
+        if (maxPrice.HasValue)
+        {
+            query = query.Where(p => p.Price <= maxPrice.Value);
+        }
+
+        var results = await query.OrderBy(p => p.ProductId).ToListAsync();
+        return View(results);
     }
 
     [HttpGet]
