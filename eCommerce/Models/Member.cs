@@ -71,7 +71,7 @@ public class RegistrationViewModel
 
     [Compare(nameof(Password))]
     [DataType(DataType.Password)]
-    public required string ComfirmPassword { get; set; }
+    public required string ConfirmPassword { get; set; }
 
 
     /// <summary>

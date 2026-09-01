@@ -29,7 +29,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark"  asp-controller="Product" asp-action="Index">Product Listing</a>
                         </li>
-                        @if (Context.Session.GetString("Username") == null)
+                        @if (Context.Session?.GetString("Username") == null)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Member" asp-action="Register">Register</a>
@@ -41,13 +41,11 @@
                         else
                         {
                            <li class="nav-item"> 
-                                <a class="nav-link text dark">
-                                    Hello @Context.Session.GetString("Username") 
-                                </a>
+                                <a class="nav-link text-dark">Hello @Context.Session.GetString("Username")</a>
                            </li> 
-                           
+
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Member" asp-action="Log out">Log out</a>
+                                <a class="nav-link text-dark" asp-controller="Member" asp-action="Logout">Log out</a>
                             </li>
                         }
 

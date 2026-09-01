@@ -1,15 +1,16 @@
-﻿@model LoginViewModel
+@model LoginViewModel
 @{
-	ViewData["Title"] = "Log In"; 
+	ViewData["Title"] = "Log In";
 }
 
 <h1>Log in to the website</h1>
 
-<form method="post"> 
+<form method="post">
+	@Html.AntiForgeryToken()
 	<div class="text-danger" asp-validation-summary="All"></div>
 	<div class="mb-3">
 		<label class="form-label" asp-for="UsernameOrEmail"></label>
-		<input class="form-control" asp-for="UsernameOrEmail" /> 
+		<input class="form-control" asp-for="UsernameOrEmail" />
 		<span class="text-danger" asp-validation-for="UsernameOrEmail"></span>
 	</div>
 	<div class="mb-3">
